@@ -1,0 +1,16 @@
+File a disposizione:
+estraiamo 200kb centrando sullo SNP presente nel file di partenza. 
+Si crea un file di testo con le posizioni di tutte le varianti (numero cromosoma:posizione)
++ script python:
+-	Creazione di una matrice vuota, con 22 righe (numero di cromosomi) e x colonne che vedremo in futuro. Nelle righe ci saranno i cromosomi, per ogni riga ho una stringa con tutte le varianti per quel cromosoma. 
+-	Creazione di un oggetto: w (window), lungo 100.000 (numero di kbasi).
+-	Lo script richiede due file: file .txt con le posizioni delle varianti; .bim, file che contiene informaizoni sulle varianti (cromosoma, codice rs, …)
+Comando strip: alla fine di un oggetto presente in una riga, la fine è considerata un carattere in più. Strip invece lo considera come un vai a capo. Split divide la colonna della posizione della variante in due colonna: numero cromosoma; posizione nel cromosoma. Poi si riempie la matrice. In seguito si apre il file .bim, ovvero il dataset. Poi si divide in tabulazione, ovvero segue la normale divisione in colonne. In seguito per ogni riga della matrice, si verifica che la colonna della posizione nella matrice corrisponde nel file .bim (estrando la finestra). Infine, si stampano in un nuovo file i codici rs riferiti a tutte le varianti comprese in queste finestre, in un file di testo. 
+La lista con tutte le varianti contenute nelle finestre possiamo usarla su PLINK. 
+La funzione extract vuole una lista di codici rs. 
+Tramite pyton, estraiamo in un file fi testo nuovo i codici rs. 
+Con comando sort | uniq ordina + elimina i doppioni
+In totale otteniamo un file di testo che considera 184843 varianti. Partendo da un dataset iniziale 3848 individui, 5112411 varianti. 
+
+codice plink
+plink --bfile NOMEDATASET --exctract FILETESTO --make--bed NOMEFILE --out
