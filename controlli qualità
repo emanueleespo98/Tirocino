@@ -1,0 +1,26 @@
+22 aprile 2023
+ i controlli di qualità sono filtri applicati sui raw data per filtrare le varianti/individui
+ che inserirebbero dei bias nell'analisi, in quanto informativi di una variabilità non normale. 
+ i controlli di qualità sono fatti cono PLINK
+ 
+ - filtraggio missing data: in base al numero di dati mancanti si filtra
+    - GENO: esclude le varianti che presentano un valore maggiore al 5% di missing data. 
+    - MIND: elimina gli individui che presentano un numero maggiore al 5% di missing data. 
+ - equilibrio H-W: l'equilibrio HE descrive una popolazione ideale. la frequenza delle varianti non varia
+                    di generazione in generazione. con la funzione HWE definisco una soglia di significatività
+                    se il p-value è significativo (0.05/Ntot varianti), le varianti non sono in equilibrio.
+- IBD: idendity by descent. si cercano di eliminare individui che sono imparentati tra loro. 
+    - GENOME: calcola la percentuale di genoma condiviso. se si supera una soglia si scarta. si 
+              crea un file con estensione .genome. si porta in R si ordina il dataset e si prende la colonna
+              con la percentuale di genoma condiviso. poi si filtrano i valori oltre soglia. 
+             formula R:  dataset2 -> data[order(data$P1_HAT, decreasing =T, )]
+             in un file di testo si inseriscono i file che vogliamo rimuovere. 
+             in PLINK, keep e remove vengono usate per tenere o rimuovere individui. usiamo il file di testo
+             per effettuare questo. 
+             con IBD siamo passati da 3498 individui a 3415. 
+             dal momento in cui abbiamo popolazioni molto admixed si usa una soglia di P1_HAT più stringente rispetto a 0,25, 
+             che è 0,27. 
+- MAF: elimina le varianti rare. la funzione maf imposta una soglia di esclusione delle varianti (f<1%)
+- pruning: si imposta una finestra di 50 SNP, 5 i passi che fa una finestra quando scorre, si imposta
+           un valore di soglia di R^2
+ 
